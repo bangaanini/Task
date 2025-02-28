@@ -1,6 +1,5 @@
-import TaskForm from "./TaskForm";
-import TaskTable from "./TaskTable";
-
+import TaskTable from "../TaskTable";
+import TaskForm from "../TaskForm";
 
 export default function Home() {
   return (
