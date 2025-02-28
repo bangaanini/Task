@@ -80,60 +80,60 @@ const Detail = () => {
     <div className="max-w-2xl mx-auto p-6 bg-gradient-to-r from-green-400 to-blue-500 rounded-3xl shadow-lg">
       <h2 className="text-3xl font-bold text-center mb-6 text-white">Detail Task</h2>
       {loading ? (
-        <p className="text-center text-white">Loading tasks...</p>
+      <p className="text-center text-white">Loading tasks...</p>
       ) : (
-        <>
-          <div className="mb-4">
-            <label htmlFor="projectSelect" className="block text-white font-bold mb-2">
-              Pilih Proyek:
-            </label>
-            <select
-              id="projectSelect"
-              value={selectedTaskId}
-              onChange={handleSelectChange}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-400"
-            >
-              <option value="">-- Pilih Proyek --</option>
-              {tasks
-                .filter((task) => !task.completed)  // Hanya tampilkan task yang belum selesai
-                .map((task) => (
-                  <option key={task.id} value={task.id.toString()}>
-                    {task.projectName}
-                  </option>
-                ))}
-            </select>
-          </div>
-          {selectedTask ? (
-            <div className="p-5 border rounded-lg shadow-md bg-white">
-              <p className="mb-2">
-                <span className="font-medium">Link Proyek: </span>
-                <a
-                  href={selectedTask.projectLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-600 underline"
-                >
-                  {selectedTask.projectLink}
-                </a>
-              </p>
-              <p className="mb-4">
-                <span className="font-medium">Detail Tugas: </span>
-                {selectedTask.taskDetails}
-              </p>
-              <div className="flex items-center">
-                <input
-                  type="checkbox"
-                  checked={selectedTask.completed}
-                  onChange={handleCheckboxChange}
-                  className="h-5 w-5 text-blue-600"
-                />
-                <span className="ml-2 text-gray-700">Tandai sebagai selesai</span>
-              </div>
-            </div>
-          ) : (
-            <p className="text-center text-white">Silahkan pilih proyek untuk melihat detail tugas.</p>
-          )}
-        </>
+      <>
+      <div className="mb-4">
+      <label htmlFor="projectSelect" className="block text-white font-bold mb-2">
+        Pilih Proyek:
+      </label>
+      <select
+        id="projectSelect"
+        value={selectedTaskId}
+        onChange={handleSelectChange}
+        className="w-full p-3 border text-black border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-400 bg-white"
+      >
+        <option value="" className="text-gray-500">-- Pilih Proyek --</option>
+        {tasks
+        .filter((task) => !task.completed)  // Hanya tampilkan task yang belum selesai
+        .map((task) => (
+        <option key={task.id} value={task.id.toString()} className="text-black truncate">
+        {task.projectName}
+        </option>
+        ))}
+      </select>
+      </div>
+      {selectedTask ? (
+      <div className="p-5 border rounded-lg shadow-md bg-blue-300">
+        <p className="mb-2">
+        <span className="font-medium">Link Proyek: </span>
+        <a
+        href={selectedTask.projectLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-blue-600 underline"
+        >
+        {selectedTask.projectLink}
+        </a>
+        </p>
+        <p className="mb-4">
+        <span className="font-medium">Detail Tugas: </span>
+        {selectedTask.taskDetails}
+        </p>
+        <div className="flex items-center">
+        <input
+        type="checkbox"
+        checked={selectedTask.completed}
+        onChange={handleCheckboxChange}
+        className="h-5 w-5 text-blue-600"
+        />
+        <span className="ml-2 text-gray-700">Tandai sebagai selesai</span>
+        </div>
+      </div>
+      ) : (
+      <p className="text-center text-white">Silahkan pilih proyek untuk melihat detail tugas.</p>
+      )}
+      </>
       )}
     </div>
   );
