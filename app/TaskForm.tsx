@@ -28,7 +28,7 @@ const TaskForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 p-6 border rounded-lg shadow-lg max-w-md mx-auto bg-white">
+    <form onSubmit={handleSubmit} className="space-y-4 p-6 bg-gradient-to-r from-green-400 to-blue-500 rounded-3xl shadow-lg">
       <input
         type="text"
         name="category"

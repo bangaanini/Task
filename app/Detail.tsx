@@ -18,7 +18,7 @@ const Detail = () => {
   const [selectedTaskId, setSelectedTaskId] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
 
-  // Ambil data tugas dari Supabase
+  // Fungsi untuk mengambil data task dari Supabase
   const fetchTasks = async () => {
     const { data, error } = await supabase.from("tasks").select("*");
     if (error) {
@@ -30,12 +30,11 @@ const Detail = () => {
     setLoading(false);
   };
 
-  // Reset status tugas setiap hari
+  // Reset status task setiap hari
   const resetTasksDaily = async () => {
     const lastReset = localStorage.getItem("lastResetDate");
     const today = new Date().toISOString().slice(0, 10); // Format YYYY-MM-DD
     if (lastReset !== today) {
-      // Update semua task: completed = false
       const { error } = await supabase.from("tasks").update({ completed: false });
       if (error) {
         console.error("Error resetting tasks: ", error);
@@ -59,7 +58,7 @@ const Detail = () => {
   // Pastikan perbandingan dilakukan dengan tipe data string
   const selectedTask = tasks.find((task) => task.id.toString() === selectedTaskId);
 
-  // Jika checkbox di-click untuk menandai task sebagai selesai
+  // Fungsi untuk menandai task sebagai selesai
   const handleCheckboxChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked && selectedTask && !selectedTask.completed) {
       const { error } = await supabase
@@ -71,44 +70,48 @@ const Detail = () => {
       } else {
         alert("Task marked as completed!");
         fetchTasks();
+        // Reset selected task jika sudah selesai agar tidak tampil detail
+        setSelectedTaskId("");
       }
     }
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-4">
-      <h2 className="text-2xl font-bold text-center mb-6">Detail Task</h2>
+    <div className="max-w-2xl mx-auto p-6 bg-gradient-to-r from-green-400 to-blue-500 rounded-3xl shadow-lg">
+      <h2 className="text-3xl font-bold text-center mb-6 text-white">Detail Task</h2>
       {loading ? (
-        <p className="text-center">Loading tasks...</p>
+        <p className="text-center text-white">Loading tasks...</p>
       ) : (
         <>
           <div className="mb-4">
-            <label htmlFor="projectSelect" className="block text-gray-700 font-medium mb-2">
+            <label htmlFor="projectSelect" className="block text-white font-bold mb-2">
               Pilih Proyek:
             </label>
             <select
               id="projectSelect"
               value={selectedTaskId}
               onChange={handleSelectChange}
-              className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-400"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-400"
             >
               <option value="">-- Pilih Proyek --</option>
-              {tasks.map((task) => (
-                <option key={task.id} value={task.id.toString()}>
-                  {task.projectName}
-                </option>
-              ))}
+              {tasks
+                .filter((task) => !task.completed)  // Hanya tampilkan task yang belum selesai
+                .map((task) => (
+                  <option key={task.id} value={task.id.toString()}>
+                    {task.projectName}
+                  </option>
+                ))}
             </select>
           </div>
           {selectedTask ? (
-            <div className="p-4 border rounded shadow-md">
+            <div className="p-5 border rounded-lg shadow-md bg-white">
               <p className="mb-2">
                 <span className="font-medium">Link Proyek: </span>
                 <a
                   href={selectedTask.projectLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-500 underline"
+                  className="text-blue-600 underline"
                 >
                   {selectedTask.projectLink}
                 </a>
@@ -128,7 +131,7 @@ const Detail = () => {
               </div>
             </div>
           ) : (
-            <p className="text-center text-gray-600">Silahkan pilih proyek untuk melihat detail tugas.</p>
+            <p className="text-center text-white">Silahkan pilih proyek untuk melihat detail tugas.</p>
           )}
         </>
       )}
