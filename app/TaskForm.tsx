@@ -7,9 +7,9 @@ const TaskForm = () => {
   const [task, setTask] = useState({
     category: "",
     ecosystem: "",
-    nama_proyek: "",
-    link_proyek: "",
-    task: "",
+    projectName: "",
+    projectLink: "",
+    taskDetails: "",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,7 +23,7 @@ const TaskForm = () => {
       console.error("Error inserting task:", error);
     } else {
       alert("Task added successfully!");
-      setTask({ category: "", ecosystem: "", nama_proyek: "", link_proyek: "", task: "" });
+      setTask({ category: "", ecosystem: "", projectName: "", projectLink: "", taskDetails: "" });
     }
   };
 
@@ -47,16 +47,16 @@ const TaskForm = () => {
       />
       <input
         type="text"
-        name="nama_proyek"
-        value={task.nama_proyek}
+        name="projectName"
+        value={task.projectName}
         onChange={handleChange}
         placeholder="Project Name"
         className="w-full p-3 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
       <input
         type="url"
-        name="link_proyek"
-        value={task.link_proyek}
+        name="projectLink"
+        value={task.projectLink}
         onChange={handleChange}
         placeholder="Project Link"
         className="w-full p-3 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -64,7 +64,7 @@ const TaskForm = () => {
       <input
         type="text"
         name="task"
-        value={task.task}
+        value={task.taskDetails}
         onChange={handleChange}
         placeholder="Task Details"
         className="w-full p-3 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"

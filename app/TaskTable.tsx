@@ -60,13 +60,13 @@ const TaskTable = () => {
               <tr key={task.id} className="border hover:bg-blue-100">
                 <td className="border p-2">{task.category}</td>
                 <td className="border p-2">{task.ecosystem}</td>
-                <td className="border p-2">{task.nama_proyek}</td>
+                <td className="border p-2">{task.projectName}</td>
                 <td className="border p-2">
-                  <a href={task.link_proyek} className="text-blue-500 hover:underline">
-                    {task.link_proyek}
+                  <a href={task.projectLink} className="text-blue-500 hover:underline">
+                    {task.projectLink}
                   </a>
                 </td>
-                <td className="border p-2">{task.task}</td>
+                <td className="border p-2">{task.taskDetails}</td>
               </tr>
             ))}
           </tbody>
