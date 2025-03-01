@@ -63,7 +63,7 @@ const TaskForm = () => {
       />
       <input
         type="text"
-        name="task"
+        name="taskDetails"
         value={task.taskDetails}
         onChange={handleChange}
         placeholder="Task Details"
